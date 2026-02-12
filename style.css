@@ -147,8 +147,9 @@ body {
 }
 
 .btn-no {
-  background: #f0f0f0;
-  color: #666;
+  background: white;
+  color: var(--text-color);
+  border: 2px solid var(--secondary-color);
   position: relative;
 }
 
@@ -251,12 +252,13 @@ body {
     font-size: 1rem;
   }
   .buttons {
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
     width: 100%;
   }
   .btn {
-    width: 100%;
+    width: auto;
+    flex: 1;
   }
   .btn-no.moving {
     width: auto;
