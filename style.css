@@ -378,3 +378,47 @@ body {
 .slide.active .buttons {
   animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.7s both;
 }
+
+/* Music Button */
+.btn-music {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  border: none;
+  color: var(--text-color);
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.btn-music:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.8);
+  opacity: 1;
+}
+
+.btn-music.playing {
+  animation: rotate 4s linear infinite;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--primary-color);
+  opacity: 0.8;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

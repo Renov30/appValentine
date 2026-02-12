@@ -269,3 +269,43 @@ window.addEventListener("load", () => {
     );
   }, 250);
 });
+
+// === MUSIK ===
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
+
+// Set volume start rendah
+bgMusic.volume = 0.5;
+
+function toggleMusic() {
+  if (bgMusic.paused) {
+    bgMusic
+      .play()
+      .then(() => {
+        musicBtn.classList.add("playing");
+        musicBtn.innerHTML = "🔊";
+      })
+      .catch((error) => {
+        console.log("Autoplay prevented:", error);
+      });
+  } else {
+    bgMusic.pause();
+    musicBtn.classList.remove("playing");
+    musicBtn.innerHTML = "🎵";
+  }
+}
+
+musicBtn.addEventListener("click", toggleMusic);
+
+// Auto-play attempt saat user pertama kali klik di mana saja (untuk bypass policy browser)
+document.addEventListener(
+  "click",
+  function startMusic() {
+    if (bgMusic.paused) {
+      toggleMusic();
+    }
+    // Remove listener agar tidak terpanggil terus
+    document.removeEventListener("click", startMusic);
+  },
+  { once: true },
+);
