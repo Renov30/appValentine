@@ -262,3 +262,41 @@ body {
     width: auto;
   }
 }
+
+/* Photo Styling */
+.photo-container {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 4px solid white;
+  transform: rotate(-3deg);
+  transition: transform 0.3s ease;
+}
+
+.photo:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+/* Variation for second photo */
+#slide2 .photo {
+  transform: rotate(3deg);
+}
+
+/* Celebration photo larger */
+#celebration .photo {
+  width: 250px;
+  height: 250px;
+  transform: rotate(0deg);
+  border: 6px solid white;
+  animation: float 3s ease-in-out infinite;
+}
