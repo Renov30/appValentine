@@ -300,3 +300,32 @@ body {
   border: 6px solid white;
   animation: float 3s ease-in-out infinite;
 }
+
+/* Mobile Responsive Enhancements */
+@media (max-width: 600px) {
+  /* Resize photos for mobile */
+  .photo {
+    width: 150px;
+    height: 150px;
+  }
+
+  #celebration .photo {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* Celebration text adjustments */
+  #celebration h1 {
+    font-size: 2.5rem;
+  }
+
+  #celebration p {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+
+  /* Ensure container doesn't overflow */
+  .container {
+    padding: 1rem;
+  }
+}
