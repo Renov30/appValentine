@@ -286,7 +286,7 @@ function toggleMusic() {
         musicBtn.innerHTML = "🔊";
       })
       .catch((error) => {
-        console.log("Autoplay prevented:", error);
+        console.log("Play failed:", error);
       });
   } else {
     bgMusic.pause();
@@ -295,17 +295,46 @@ function toggleMusic() {
   }
 }
 
-musicBtn.addEventListener("click", toggleMusic);
+musicBtn.addEventListener("click", (e) => {
+  e.stopPropagation(); // Prevent triggering document click listener
+  toggleMusic();
+});
 
-// Auto-play attempt saat user pertama kali klik di mana saja (untuk bypass policy browser)
-document.addEventListener(
-  "click",
-  function startMusic() {
-    if (bgMusic.paused) {
-      toggleMusic();
-    }
-    // Remove listener agar tidak terpanggil terus
-    document.removeEventListener("click", startMusic);
-  },
-  { once: true },
-);
+// Auto-play attempt logic
+let isTryingToPlay = false;
+
+function attemptPlay() {
+  // Hanya coba play jika masih paused dan tidak sedang mencoba
+  if (!bgMusic.paused || isTryingToPlay) return;
+
+  isTryingToPlay = true;
+
+  bgMusic
+    .play()
+    .then(() => {
+      // Berhasil play
+      musicBtn.classList.add("playing");
+      musicBtn.innerHTML = "🔊";
+      isTryingToPlay = false;
+      // Hapus listener klik global karena sudah berhasil
+      document.removeEventListener("click", userInteractPlay);
+    })
+    .catch((error) => {
+      // Gagal play
+      isTryingToPlay = false;
+      console.log("Autoplay blocked/failed.");
+    });
+}
+
+function userInteractPlay() {
+  document.removeEventListener("click", userInteractPlay); // Remove immediately to prevent double fires
+  if (bgMusic.paused) {
+    attemptPlay();
+  }
+}
+
+// Coba play saat load
+window.addEventListener("load", attemptPlay);
+
+// Coba play saat klik pertama di dokumen (jika belum playing)
+document.addEventListener("click", userInteractPlay);
