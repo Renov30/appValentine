@@ -34,8 +34,20 @@ function moveButton() {
   if (!noBtn.classList.contains("moving")) {
     const rect = noBtn.getBoundingClientRect();
 
-    // Pindahkan ke body agar tidak terpengaruh overflow hidden dari card
-    // atau relative context dari slide yang punya transform
+    // Buat placeholder agar layout tidak berubah (tombol Yes tidak geser ke tengah)
+    const placeholder = document.createElement("button");
+    placeholder.className = noBtn.className;
+    placeholder.style.visibility = "hidden";
+    placeholder.style.pointerEvents = "none";
+    placeholder.style.position = "static"; // Pastikan static agar ikut flow flex
+
+    // Copy computed text content dan width/height jika perlu (tapi class sudah cukup biasanya)
+    placeholder.innerHTML = noBtn.innerHTML;
+
+    // Masukkan placeholder sebelum tombol asli dipindah
+    noBtn.parentNode.insertBefore(placeholder, noBtn);
+
+    // Pindahkan ke body agar tidak terpengaruh overflow hidden dari card, dsb
     document.body.appendChild(noBtn);
 
     noBtn.style.position = "fixed";
