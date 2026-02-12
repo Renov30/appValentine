@@ -135,14 +135,32 @@ document.addEventListener("mousemove", (e) => {
 });
 
 // Fallback events yang lebih agresif
+// Fallback events yang lebih agresif
+// Logic mouse desktop
 noBtn.addEventListener("mouseenter", moveButton);
 noBtn.addEventListener("mouseover", moveButton);
+
+// Logic klik dan touch (Mobile)
 noBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  e.stopPropagation();
   moveButton();
 });
-noBtn.addEventListener("touchstart", (e) => {
+
+// Gunakan passive: false agar preventDefault bekerja (mencegah scroll/zoom saat tap tombol)
+noBtn.addEventListener(
+  "touchstart",
+  (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    moveButton();
+  },
+  { passive: false },
+);
+
+noBtn.addEventListener("touchend", (e) => {
   e.preventDefault();
+  e.stopPropagation();
   moveButton();
 });
 
