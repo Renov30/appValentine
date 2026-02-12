@@ -1,0 +1,269 @@
+:root {
+  --primary-color: #ff4d6d;
+  --secondary-color: #ff8fa3;
+  --bg-color: #fff0f3;
+  --text-color: #590d22;
+  --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+  background-color: var(--bg-color);
+  background-image:
+    radial-gradient(
+      circle at 10% 20%,
+      rgba(255, 77, 109, 0.1) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(255, 143, 163, 0.1) 0%,
+      transparent 20%
+    );
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card Styling dengan min-height agar tidak loncat */
+.card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 2rem 3rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(255, 77, 109, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  max-width: 90%;
+  width: 500px;
+  min-height: 350px; /* Menjaga layout tetap saat pindah slide */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease;
+  z-index: 10;
+  overflow: hidden; /* Penting untuk animasi slide */
+  position: relative;
+}
+
+/* Slide Styling */
+.slide {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  position: absolute; /* Agar bertumpuk */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(50px); /* Efek masuk dari kanan */
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0);
+  position: relative; /* Slide aktif mengambil ruang */
+}
+
+/* Slide yang sudah lewat (opsional jika ingin animasi keluar yang beda) */
+.slide.prev {
+  transform: translateX(-50px);
+  opacity: 0;
+  position: absolute;
+}
+
+.header {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.message {
+  color: #888;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.btn {
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: "Outfit", sans-serif;
+  margin-top: auto;
+}
+
+.btn-next {
+  background: var(--text-color);
+  color: var(--white);
+  box-shadow: 0 4px 10px rgba(89, 13, 34, 0.2);
+}
+
+.btn-next:hover {
+  transform: scale(1.05);
+  background: #7a1530;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.btn-yes {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+}
+
+.btn-yes:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 77, 109, 0.6);
+}
+
+.btn-no {
+  background: #f0f0f0;
+  color: #666;
+  position: relative;
+}
+
+/* Animasi lari */
+.btn-no.moving {
+  position: fixed;
+  z-index: 100;
+}
+
+/* Celebration Screen */
+#celebration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 240, 243, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+#celebration.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#celebration h1 {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  animation: bounce 1s infinite;
+}
+
+#celebration p {
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hearts {
+  margin-top: 2rem;
+  font-size: 2rem;
+}
+
+.heart {
+  display: inline-block;
+  animation: float 2s ease-in-out infinite;
+  margin: 0 0.5rem;
+}
+
+.heart:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.heart:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.heart:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .card {
+    padding: 1.5rem;
+    min-height: 300px;
+  }
+  .header {
+    font-size: 1.8rem;
+  }
+  .message {
+    font-size: 1rem;
+  }
+  .buttons {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+  .btn {
+    width: 100%;
+  }
+  .btn-no.moving {
+    width: auto;
+  }
+}
