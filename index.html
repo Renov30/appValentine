@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Untuk Kamu ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <!-- Slide 1: Greeting -->
+        <div id="slide1" class="slide active">
+          <h1 class="header">Hai Sayang! 💖</h1>
+          <p class="message">Aku punya sesuatu buat kamu...</p>
+          <button class="btn btn-next" onclick="nextSlide(2)">Lanjut 👉</button>
+        </div>
+
+        <!-- Slide 2: Compliment -->
+        <div id="slide2" class="slide hidden">
+          <h1 class="header">Kamu Tau Gak? ✨</h1>
+          <p class="message">
+            Setiap hari sama kamu itu rasanya spesial banget buat aku. Kamu itu
+            alesan aku senyum tiap hari! 😊
+          </p>
+          <button class="btn btn-next" onclick="nextSlide(3)">
+            Lanjut lagi 👉
+          </button>
+        </div>
+
+        <!-- Slide 3: Transition -->
+        <div id="slide3" class="slide hidden">
+          <h1 class="header">Jadi... 🫣</h1>
+          <p class="message">
+            Di hari kasih sayang ini, aku mau nanya satu hal penting...
+          </p>
+          <button class="btn btn-next" onclick="nextSlide(4)">
+            Apa tuh? 🤔
+          </button>
+        </div>
+
+        <!-- Slide 4: The Question -->
+        <div id="slide4" class="slide hidden">
+          <h1 class="header">Will You Be My Valentine? 🌹</h1>
+          <p class="message">Mau gak jalan sama aku pas Valentine?</p>
+          <div class="buttons">
+            <button id="yesBtn" class="btn btn-yes">MAU BANGET! 😍</button>
+            <button id="noBtn" class="btn btn-no">Gak 😝</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="celebration" class="hidden">
+        <h1>YEAYYY! 🎉</h1>
+        <p>Aku jemput kamu nanti yaaa! love you! ❤️</p>
+        <div class="hearts">
+          <span class="heart">❤️</span>
+          <span class="heart">💖</span>
+          <span class="heart">💝</span>
+          <span class="heart">💕</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
