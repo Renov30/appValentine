@@ -33,8 +33,15 @@ function moveButton() {
   // Pastikan tombol jadi 'fixed' positioning saat mulai bergerak
   if (!noBtn.classList.contains("moving")) {
     const rect = noBtn.getBoundingClientRect();
+
+    // Pindahkan ke body agar tidak terpengaruh overflow hidden dari card
+    // atau relative context dari slide yang punya transform
+    document.body.appendChild(noBtn);
+
+    noBtn.style.position = "fixed";
     noBtn.style.left = `${rect.left}px`;
     noBtn.style.top = `${rect.top}px`;
+    noBtn.style.width = "auto"; // Reset width jika terpengaruh flex parent sebelumnya
     noBtn.classList.add("moving");
   }
 
@@ -48,19 +55,26 @@ function moveButton() {
   const newY =
     Math.random() * (viewportHeight - btnRect.height - padding * 2) + padding;
 
+  // Terapkan posisi baru
   noBtn.style.left = `${newX}px`;
   noBtn.style.top = `${newY}px`;
 
+  // Samakan dengan durasi transisi CSS (300ms) agar tidak glitch
   setTimeout(() => {
     isMoving = false;
-  }, 200);
+  }, 300);
 }
 
 // Logic Proximity
 document.addEventListener("mousemove", (e) => {
-  // Hanya aktifkan proximity check jika slide terakhir sedang aktif
+  // Cek apakah slide 4 aktif.
+  // Jika tombol sudah di body (artinya sudah pernah lari), kita tidak perlu cek slide lagi.
   const slide4 = document.getElementById("slide4");
-  if (!slide4.classList.contains("active")) return;
+  if (
+    !slide4.classList.contains("active") &&
+    !noBtn.classList.contains("moving")
+  )
+    return;
 
   if (isMoving) return;
 
@@ -68,14 +82,18 @@ document.addEventListener("mousemove", (e) => {
   const btnCenterX = btnRect.left + btnRect.width / 2;
   const btnCenterY = btnRect.top + btnRect.height / 2;
 
+  // Hitung jarak cursor dari pusat tombol
   const distance = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
 
-  if (distance < 150) {
+  // Radius diperbesar agar lebih susah didekati (misal 250px)
+  // Hati-hati jangan terlalu besar nanti user susah klik YES karena NO-nya lari terus
+  if (distance < 200) {
     moveButton();
   }
 });
 
-// Fallback events
+// Fallback events yang lebih agresif
+noBtn.addEventListener("mouseenter", moveButton);
 noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("click", (e) => {
   e.preventDefault();
