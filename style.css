@@ -66,8 +66,8 @@ body {
   flex-direction: column;
   align-items: center;
   transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
+    opacity 1.5s ease,
+    transform 1.5s ease;
   position: absolute; /* Agar bertumpuk */
   opacity: 0;
   pointer-events: none;
