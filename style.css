@@ -65,25 +65,25 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition:
-    opacity 1.5s ease,
-    transform 1.5s ease;
+  /* transition: opacity 1.5s ease, transform 1.5s ease;  <-- Old transition */
+  transition: all 0.5s ease;
   position: absolute; /* Agar bertumpuk */
   opacity: 0;
   pointer-events: none;
-  transform: translateX(50px); /* Efek masuk dari kanan */
+  transform: scale(0.8); /* Mulai dari kecil untuk efek pop up */
 }
 
 .slide.active {
   opacity: 1;
   pointer-events: all;
-  transform: translateX(0);
+  transform: scale(1);
   position: relative; /* Slide aktif mengambil ruang */
 }
 
 /* Slide yang sudah lewat (opsional jika ingin animasi keluar yang beda) */
+/* Slide yang sudah lewat */
 .slide.prev {
-  transform: translateX(-50px);
+  transform: scale(0.8);
   opacity: 0;
   position: absolute;
 }
@@ -354,16 +354,27 @@ body {
   }
 }
 
-/* Staggered Animation for First Slide */
-#slide1 .photo-container {
+/* Reset children state for animation replay */
+.slide .photo-container,
+.slide .header,
+.slide .message,
+.slide .btn,
+.slide .buttons {
+  opacity: 0;
+  /* We don't use transform here because popUp keyframes handle the scale from 0 to 1 */
+}
+
+/* Staggered Animation for ALL Slides */
+.slide.active .photo-container {
+  animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s both;
+}
+.slide.active .header {
+  animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s both;
+}
+.slide.active .message {
   animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s both;
 }
-#slide1 .header {
+.slide.active .btn,
+.slide.active .buttons {
   animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.7s both;
-}
-#slide1 .message {
-  animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.9s both;
-}
-#slide1 .btn {
-  animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.1s both;
 }
