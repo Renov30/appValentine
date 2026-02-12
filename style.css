@@ -160,7 +160,9 @@ body {
 }
 
 /* Celebration Screen */
-#celebration {
+/* Celebration & Bonus Screen */
+#celebration,
+#bonus {
   position: absolute;
   top: 0;
   left: 0;
@@ -177,7 +179,8 @@ body {
   transition: opacity 0.5s ease;
 }
 
-#celebration.visible {
+#celebration.visible,
+#bonus.visible {
   opacity: 1;
   pointer-events: all;
 }
@@ -256,7 +259,7 @@ body {
     gap: 1rem;
     width: 100%;
   }
-  .btn {
+  .buttons .btn {
     width: auto;
     flex: 1;
   }
@@ -330,4 +333,12 @@ body {
   .container {
     padding: 1rem;
   }
+}
+
+/* GIF Styling */
+.gif-content {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }

@@ -188,5 +188,29 @@ yesBtn.addEventListener("click", () => {
   }, 250);
 });
 
+// === LOGIKA BONUS SCREEN ===
+const bonusBtn = document.getElementById("bonusBtn");
+const bonusScreen = document.getElementById("bonus");
+
+if (bonusBtn) {
+  bonusBtn.addEventListener("click", () => {
+    celebration.classList.remove("visible");
+    setTimeout(() => {
+      celebration.classList.add("hidden");
+      bonusScreen.classList.remove("hidden");
+
+      // Trigger confetti again for fun
+      setTimeout(() => {
+        bonusScreen.classList.add("visible");
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      }, 50);
+    }, 500); // Wait for fade out
+  });
+}
+
 // Expose fungsi nextSlide ke global scope agar bisa dipanggil dari HTML onclick
 window.nextSlide = nextSlide;
