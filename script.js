@@ -138,6 +138,7 @@ noBtn.addEventListener("touchstart", (e) => {
 yesBtn.addEventListener("click", () => {
   // Sembunyikan container card utama
   document.querySelector(".card").style.display = "none";
+  noBtn.style.display = "none"; // Hide No button explicitly in case it was moved to body
 
   celebration.classList.remove("hidden");
   setTimeout(() => {
