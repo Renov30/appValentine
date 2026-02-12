@@ -50,10 +50,41 @@ function moveButton() {
   const btnRect = noBtn.getBoundingClientRect();
   const padding = 20;
 
-  const newX =
-    Math.random() * (viewportWidth - btnRect.width - padding * 2) + padding;
-  const newY =
-    Math.random() * (viewportHeight - btnRect.height - padding * 2) + padding;
+  // Posisi saat ini
+  let currentX = parseFloat(noBtn.style.left);
+  let currentY = parseFloat(noBtn.style.top);
+
+  // Jika error parsing, fallback ke rect client
+  if (isNaN(currentX) || isNaN(currentY)) {
+    currentX = btnRect.left;
+    currentY = btnRect.top;
+  }
+
+  // Jarak lari dibatasi agar tidak kejauhan
+  const maxDist = 250;
+  const minDist = 50;
+
+  // Hitung posisi baru secara random dalam radius tertentu
+  const angle = Math.random() * Math.PI * 2;
+  const distance = Math.random() * (maxDist - minDist) + minDist;
+
+  let newX = currentX + Math.cos(angle) * distance;
+  let newY = currentY + Math.sin(angle) * distance;
+
+  // Pastikan tombol tidak keluar layar (Boundary check)
+  // const padding = 20; // padding sudah dideklarasikan di atas
+
+  // Batas Kiri & Kanan
+  if (newX < padding) newX = padding;
+  if (newX > viewportWidth - btnRect.width - padding) {
+    newX = viewportWidth - btnRect.width - padding;
+  }
+
+  // Batas Atas & Bawah
+  if (newY < padding) newY = padding;
+  if (newY > viewportHeight - btnRect.height - padding) {
+    newY = viewportHeight - btnRect.height - padding;
+  }
 
   // Terapkan posisi baru
   noBtn.style.left = `${newX}px`;
@@ -62,7 +93,7 @@ function moveButton() {
   // Samakan dengan durasi transisi CSS (300ms) agar tidak glitch
   setTimeout(() => {
     isMoving = false;
-  }, 300);
+  }, 150);
 }
 
 // Logic Proximity
@@ -85,9 +116,8 @@ document.addEventListener("mousemove", (e) => {
   // Hitung jarak cursor dari pusat tombol
   const distance = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
 
-  // Radius diperbesar agar lebih susah didekati (misal 250px)
-  // Hati-hati jangan terlalu besar nanti user susah klik YES karena NO-nya lari terus
-  if (distance < 200) {
+  // Radius diperkecil agar bisa lebih dekat baru lari
+  if (distance < 80) {
     moveButton();
   }
 });
